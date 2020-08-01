@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const http = require('http');
 const https = require('https');
@@ -15,8 +14,6 @@ const calendar = require('./calendar.js');
 
 const app = express();
 const port = 3001;
-
-let rubyhome = fs.readFileSync('/home/rubys/tmp/rubyhome.ics', 'utf8');
 
 app.use(bodyParser.json());
 

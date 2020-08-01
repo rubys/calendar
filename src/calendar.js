@@ -26,7 +26,7 @@ export function reduce(jcal) {
 
       if (attrName === 'organizer') {
         event.organizer = person(attr);
-      } else if (attrName == 'attendee') {
+      } else if (attrName === 'attendee') {
         if (!event.attendees) event.attendees = [];
         event.attendees.push(person(attr));
       } else if (attrName === 'start') {
@@ -37,7 +37,7 @@ export function reduce(jcal) {
         }
       } else if (attrName === 'x-alt-desc' && attr[1].fmttype === 'text/html') {
         event.htmlDescription = attr[3];
-      } else if (attrName == 'geo' && attr[3].length == 2) {
+      } else if (attrName === 'geo' && attr[3].length === 2) {
         event.geo = { lat: attr[3][0], lon: attr[3][1] };
       } else if (attrName === 'categories') {
         event.categories = attr.slice(3).map(name => ({ name }));
@@ -45,7 +45,7 @@ export function reduce(jcal) {
         event[attrName] = attr[3].toLowerCase();
       } else if (['allDay', 'x-microsoft-msncalendar-alldayevent'].includes(attrName)) {
         event.allDay = (attr[3] === 'TRUE');
-      } else if (attrName == 'repeating') {
+      } else if (attrName === 'repeating') {
         event.repeating = {
           ...(event.repeating || {}),
           ...Object.fromEntries(Object.entries(attr[3]).map(
@@ -96,7 +96,7 @@ export function reduce(jcal) {
 }
 
 // mapping from jcal names to event names
-let nameMap = {
+const nameMap = {
   cn: 'name',
   cutype: 'type',
   partstat: 'status',
@@ -132,11 +132,11 @@ function person(attr) {
 
   person.email = attr[3].replace(/^mailto:/i, '');
 
-  if (Object.keys(person.length == 3) && person.name && person.role == 'REQ-PARTICIPANT') {
+  if (Object.keys(person.length === 3) && person.name && person.role === 'REQ-PARTICIPANT') {
     delete person.role;
   }
 
-  if (Object.keys(person).length == 2 && person.name) {
+  if (Object.keys(person).length === 2 && person.name) {
     person = `${person.name} <${person.email}>`;
   }
 
@@ -159,7 +159,7 @@ function duration(trigger) {
     } else if (part[2] === 'D') {
       duration += parseInt(part[1]) * 86400;
     } else if (part[2] === 'W') {
-      duratin += parseInt(part[1]) * 86400 * 7;
+      duration += parseInt(part[1]) * 86400 * 7;
     }
   };
 
