@@ -17,9 +17,12 @@ export function reduce(jcal) {
   };
 
   for (let vevent of jcal[2]) {
+    if (vevent[0] !== 'vevent') continue;
+
     let event = {}
     for (let attr of vevent[1]) {
       let attrName = nameMap[attr[0]] || attr[0];
+    
 
       if (attrName === 'organizer') {
         event.organizer = person(attr);
