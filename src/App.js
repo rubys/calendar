@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return <>
+    <div className="container">
+    <h1>Calendar</h1>
+      <form method="post">
+        <div className="form-group">
+          <label htmlFor="address">Calendar address</label>
+          <input type="url" className="form-control" id="address"
+            aria-describedby="addrHelp" placeholder="Enter url" />
+          <small id="addrHelp" className="form-text text-muted">Full URL to calendar, typically ends is <code>ics</code>.</small>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </form>
     </div>
-  );
+  </>;
 }
 
 export default App;
