@@ -22,7 +22,8 @@ export function reduce(jcal) {
     let event = {}
     for (let attr of vevent[1]) {
       let attrName = nameMap[attr[0]] || attr[0];
-    
+      let attrValue = attr[3];
+      if (typeof attrValue === 'string') attrValue = attrValue.replace(/\\./g, string => string[1].toLowerCase() === 'n' ? "\n" : string[1]);
 
       if (attrName === 'organizer') {
         event.organizer = person(attr);
@@ -36,7 +37,7 @@ export function reduce(jcal) {
           event.timezone = attr[1].tzid;
         }
       } else if (attrName === 'x-alt-desc' && attr[1].fmttype === 'text/html') {
-        event.htmlDescription = attr[3];
+        event.htmlDescription = attrValue;
       } else if (attrName === 'geo' && attr[3].length === 2) {
         event.geo = { lat: attr[3][0], lon: attr[3][1] };
       } else if (attrName === 'categories') {
@@ -59,12 +60,12 @@ export function reduce(jcal) {
         if (attr[1].tzid) event.repeating.excludeTimezone = attr[1].tzid;
       } else if (attrName === 'appleLocation' && attr[3].startsWith('geo:')) {
         let [lat, lon] = attr[3].split(':')[1].split(',');
-        event[attrName] = {geo: { lat, lon }};
+        event[attrName] = { geo: { lat, lon } };
         for (let [name, value] of Object.entries(attr[1])) {
           event[attrName][name.split('-').pop()] = value;
         }
       } else {
-        event[attrName] = attr[3];
+        event[attrName] = attrValue;
       }
     }
 

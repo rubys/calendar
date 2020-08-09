@@ -168,3 +168,13 @@ test('alarm', () => {
 
   expect(roundTrip(event)).toEqual(event);
 });
+
+test('quoted strings', () => {
+  let event = {
+    ...seed,
+    summary: "can't, won't, and shoudn't",
+    htmlDescription: '"quoted"\nand new line'
+  }
+
+  expect(roundTrip(event)).toEqual(event);
+});
