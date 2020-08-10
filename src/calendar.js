@@ -185,5 +185,5 @@ export function serialize({ calendar, events } = { calendar: {}, events: [] }) {
     }
   }
 
-  return cal.toString().replace(/^(UID:.*)@undefined/m, (match, uid) => uid);
+  return cal.toString().replace(/^(UID:.*)@undefined/mg, (match, uid) => uid);
 }
